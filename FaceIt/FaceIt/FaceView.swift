@@ -8,8 +8,32 @@
 
 import UIKit
 
+@IBDesignable
 class FaceView: UIView {
-    var smileFactor: CGFloat = 0 //1 means smile and -1 means sad.
+    
+    //changable parameters
+    @IBInspectable
+    var smileFactor: CGFloat = 1 { didSet{setNeedsDisplay()}}
+    @IBInspectable
+    var eyeOpen: Bool = false { didSet{setNeedsDisplay()}}
+    @IBInspectable
+    var eyeBrowTiltFactor: CGFloat = -1 { didSet{setNeedsDisplay()}}
+    @IBInspectable
+    var lineColor: UIColor = UIColor.black { didSet{setNeedsDisplay()}}
+    @IBInspectable
+    var eyeRaidus: CGFloat = 10.0 { didSet{setNeedsDisplay()}}
+    
+    
+    @objc func scaleEye(reconizer: UIPinchGestureRecognizer){
+        switch reconizer.state{
+        case .changed, .ended:
+            eyeRaidus *= reconizer.scale
+            reconizer.scale = 1
+        default:
+            break
+        }
+    }
+    
     private var skullRadius : CGFloat {
         return min(bounds.size.width, bounds.size.height)/2
     }
@@ -18,8 +42,7 @@ class FaceView: UIView {
     }
     
     struct offset{
-        static let eyeRaidus: CGFloat = 10.0
-        static let eyeOffset: CGFloat = 50.0
+        static let eyeOffset: CGFloat = 30.0
         static let mouthWidth: CGFloat = 200.0
         static let mouthOffset: CGFloat = 80.0
     }
@@ -31,16 +54,33 @@ class FaceView: UIView {
     private func drawCircle(center: CGPoint, radius: CGFloat) -> UIBezierPath{
         let circle = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0.0, endAngle: CGFloat(2*M_PI), clockwise: true)
         circle.lineWidth = 5.0
-        UIColor.init(red: 125.0, green: 125.0, blue: 0.0, alpha: 1.0).set()
+        lineColor.set()
         return circle
         
     }
     private func pathForEye(Eye: eye) -> UIBezierPath{
         switch Eye {
         case .left:
-            return drawCircle(center: CGPoint(x:(centerPoint.x - offset.eyeOffset), y:(centerPoint.y-offset.eyeOffset)), radius: offset.eyeRaidus)
+            if eyeOpen{
+                return drawCircle(center: CGPoint(x:(centerPoint.x - offset.eyeOffset), y:(centerPoint.y-offset.eyeOffset)), radius: eyeRaidus)
+            }else{
+                let eye = UIBezierPath()
+                eye.move(to: CGPoint(x: centerPoint.x - offset.eyeOffset - eyeRaidus, y: centerPoint.y-offset.eyeOffset))
+                eye.addLine(to: CGPoint(x: centerPoint.x - offset.eyeOffset + 2 * eyeRaidus, y: centerPoint.y - offset.eyeOffset))
+                eye.lineWidth = 5.0
+                return eye
+            }
         case .right:
-            return drawCircle(center: CGPoint(x:centerPoint.x + offset.eyeOffset, y:centerPoint.y-offset.eyeOffset), radius: offset.eyeRaidus)
+            if eyeOpen{
+                return drawCircle(center: CGPoint(x:centerPoint.x + offset.eyeOffset, y:centerPoint.y-offset.eyeOffset), radius: eyeRaidus)
+            }else{
+                let eye = UIBezierPath()
+                eye.move(to: CGPoint(x: centerPoint.x + offset.eyeOffset - eyeRaidus, y: centerPoint.y-offset.eyeOffset))
+                eye.addLine(to: CGPoint(x: centerPoint.x + offset.eyeOffset + 2 * eyeRaidus, y: centerPoint.y - offset.eyeOffset))
+                eye.lineWidth = 5.0
+                return eye
+            }
+            
         default:
             break
         }
@@ -60,12 +100,32 @@ class FaceView: UIView {
         
     }
     
+    private func pathForEyebrow(Eye: eye) -> UIBezierPath{
+        let eyebrowOffset = eyeBrowTiltFactor * 15
+        switch Eye{
+        case .left:
+            let eyeBrow = UIBezierPath()
+            eyeBrow.move(to: CGPoint(x: centerPoint.x - offset.eyeOffset - eyeRaidus, y: centerPoint.y - 1.5 * offset.eyeOffset))
+            eyeBrow.addLine(to: CGPoint(x: centerPoint.x - offset.eyeOffset + 2 * eyeRaidus, y: centerPoint.y - 1.5 * offset.eyeOffset - eyebrowOffset))
+            eyeBrow.lineWidth = 5.0
+            return eyeBrow
+        case .right:
+            let eyeBrow = UIBezierPath()
+            eyeBrow.move(to: CGPoint(x: centerPoint.x + offset.eyeOffset - eyeRaidus, y: centerPoint.y-1.5 * offset.eyeOffset - eyebrowOffset))
+            eyeBrow.addLine(to: CGPoint(x: centerPoint.x + offset.eyeOffset + 2 * eyeRaidus, y: centerPoint.y - 1.5 * offset.eyeOffset))
+            eyeBrow.lineWidth = 5.0
+            return eyeBrow
+    }
+    }
+    
     override func draw(_ rect: CGRect) {
        
         drawCircle(center: centerPoint, radius: skullRadius).stroke()
         pathForEye(Eye: eye.left).stroke()
         pathForEye(Eye: eye.right).stroke()
         pathForMouth(smileFactor: smileFactor).stroke()
+        pathForEyebrow(Eye: eye.left).stroke()
+        pathForEyebrow(Eye: eye.right).stroke()
      }
 
 }

@@ -20,6 +20,23 @@
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Ose-mT-hsK" customClass="FaceView" customModule="FaceIt" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="eyeBrowTiltFactor">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="eyeOpen" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="smileFactor">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="mOT-OK-MNL" appends="YES" id="A4j-Ah-gJ0"/>
+                                    <outletCollection property="gestureRecognizers" destination="RY9-fz-3SM" appends="YES" id="k7C-rR-r9x"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -31,8 +48,21 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="faceView" destination="Ose-mT-hsK" id="UyV-TO-Ybb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTouchesRequired="2" id="mOT-OK-MNL">
+                    <connections>
+                        <action selector="eyeChange:" destination="BYZ-38-t0r" id="43V-3b-isf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <rotationGestureRecognizer rotation="1" id="RY9-fz-3SM">
+                    <connections>
+                        <action selector="eyeBrowChange:" destination="BYZ-38-t0r" id="VBu-FJ-1hn"/>
+                    </connections>
+                </rotationGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
