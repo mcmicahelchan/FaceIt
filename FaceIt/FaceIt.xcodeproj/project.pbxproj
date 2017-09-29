@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F1473CA1F78CB500076E2E1 /* FacialExpressionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1473C91F78CB500076E2E1 /* FacialExpressionModel.swift */; };
+		6F61D0441F7BAF2900AD0A2E /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F61D0431F7BAF2900AD0A2E /* SelectViewController.swift */; };
 		6F690F411F72D4E10049D12A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F690F401F72D4E10049D12A /* AppDelegate.swift */; };
 		6F690F431F72D4E10049D12A /* FaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F690F421F72D4E10049D12A /* FaceViewController.swift */; };
 		6F690F461F72D4E10049D12A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F690F441F72D4E10049D12A /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		6F1473C91F78CB500076E2E1 /* FacialExpressionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacialExpressionModel.swift; sourceTree = "<group>"; };
+		6F61D0431F7BAF2900AD0A2E /* SelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
 		6F690F3D1F72D4E10049D12A /* FaceIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F690F401F72D4E10049D12A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F690F421F72D4E10049D12A /* FaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				6F690F441F72D4E10049D12A /* Main.storyboard */,
 				6F690F471F72D4E10049D12A /* Assets.xcassets */,
 				6F1473C91F78CB500076E2E1 /* FacialExpressionModel.swift */,
+				6F61D0431F7BAF2900AD0A2E /* SelectViewController.swift */,
 			);
 			path = FaceIt;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F61D0441F7BAF2900AD0A2E /* SelectViewController.swift in Sources */,
 				6F690F431F72D4E10049D12A /* FaceViewController.swift in Sources */,
 				6F690F411F72D4E10049D12A /* AppDelegate.swift in Sources */,
 				6F690F551F72D57D0049D12A /* FaceView.swift in Sources */,

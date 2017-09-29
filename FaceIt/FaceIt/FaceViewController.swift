@@ -60,36 +60,39 @@ class FaceViewController: UIViewController {
         }
     }
     func updateUI(){
-        switch FacialExpression.eye{
-        case .open:
-            faceView.eyeOpen = true
-        case .close:
-            faceView.eyeOpen = false
-        default:
-            break
+        if faceView != nil{
+            switch FacialExpression.eye{
+            case .open:
+                faceView.eyeOpen = true
+            case .close:
+                faceView.eyeOpen = false
+            default:
+                break
+            }
+            
+            switch FacialExpression.mouth{
+            case .smile:
+                faceView.smileFactor = 1.0
+            case .relax:
+                faceView.smileFactor = 0.0
+            case .sad:
+                faceView.smileFactor = -1.0
+            default:
+                break
+            }
+            
+            switch FacialExpression.eyebrow{
+            case .happy:
+                faceView.eyeBrowTiltFactor = 1.0
+            case .relax:
+                faceView.eyeBrowTiltFactor = 0.0
+            case .sad:
+                faceView.eyeBrowTiltFactor = -1.0
+            default:
+                break
+            }
         }
         
-        switch FacialExpression.mouth{
-        case .smile:
-            faceView.smileFactor = 1.0
-        case .relax:
-            faceView.smileFactor = 0.0
-        case .sad:
-            faceView.smileFactor = -1.0
-        default:
-            break
-        }
-        
-        switch FacialExpression.eyebrow{
-        case .happy:
-            faceView.eyeBrowTiltFactor = 1.0
-        case .relax:
-            faceView.eyeBrowTiltFactor = 0.0
-        case .sad:
-            faceView.eyeBrowTiltFactor = -1.0
-        default:
-            break
-        }
     }
 }
 
